@@ -1,0 +1,12 @@
+# Official Nginx image
+FROM nginx:1.23-alpine
+
+# Copy Nginx configuration file to the container
+# nginx_lb_active_active.conf or nginx_lb_active_passive.conf
+COPY ngnix_aa.conf /etc/nginx/nginx.conf
+
+# Expose port 80
+EXPOSE 80
+
+# Run nginx!
+CMD ["nginx", "-g", "daemon off;"]

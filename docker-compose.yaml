@@ -18,3 +18,12 @@ services:
     environment:
       WILDBERRIES_TOKEN: "${WILDBERRIES_TOKEN}"
       PORT: 8081
+
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - report1
+      - report2

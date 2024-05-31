@@ -22,7 +22,7 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
 # Expose the port on which the Spring Boot application will run
-EXPOSE 8080
+# EXPOSE 8080
 
 # Command to run the application
 CMD ["java", "-Dspring.profiles.active=dev","-jar", "app.jar"]
