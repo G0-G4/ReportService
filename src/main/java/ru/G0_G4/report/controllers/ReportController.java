@@ -1,5 +1,6 @@
 package ru.G0_G4.report.controllers;
 
+import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,14 +13,17 @@ import ru.G0_G4.report.services.WildberriesService;
 public class ReportController {
 
   WildberriesService wildberriesService;
+  MeterRegistry registry;
 
   @Autowired
-  public ReportController(WildberriesService wildberriesService) {
+  public ReportController(WildberriesService wildberriesService, MeterRegistry registry) {
     this.wildberriesService = wildberriesService;
+    this.registry = registry;
   }
 
   @GetMapping("/report/{shop}")
   public ResponseEntity<?> getReport(@PathVariable("shop") String shop) {
+    registry.counter("counter").increment();
     if ("wildberries".equalsIgnoreCase(shop)) {
       return ResponseEntity.ok(wildberriesService.getReport());
     }
